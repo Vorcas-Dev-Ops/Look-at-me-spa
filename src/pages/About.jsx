@@ -99,7 +99,25 @@ export default function About() {
   ))}
 </div>
 
+<div>
+{/* Floating WhatsApp Button */}
+<a
+  href="https://wa.me/919535261933?text=Hi%20I%20want%20to%20book%20an%20appointment"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="fixed bottom-5 right-5 z-50"
+>
+  <div className="w-14 h-14 rounded-full bg-green-500 shadow-xl flex items-center justify-center hover:scale-110 transition-transform duration-300">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+      alt="WhatsApp"
+      className="w-8 h-8"
+    />
+  </div>
+</a>
 
+
+</div>
     </div>
   );
 }

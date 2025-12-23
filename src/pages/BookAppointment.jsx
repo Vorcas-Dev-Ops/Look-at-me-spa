@@ -17,7 +17,13 @@ const serviceCategories = {
 const addOnList = ["Head Massage", "Foot Massage", "Full Body Wax"];
 
 // Branch Locations
-const locations = ["KASTHURINAGAR", "TC Palya"];
+const locations = ["KASTHURINAGAR", "TC PALYA"];
+
+// Branch-wise WhatsApp Numbers
+const branchAdmins = {
+  KASTHURINAGAR: "917349058245",
+  "TC PALYA": "919535261933",
+};
 
 export default function BookAppointment() {
   const { search } = useLocation();
@@ -32,8 +38,6 @@ export default function BookAppointment() {
   const [service, setService] = useState(prefill);
   const [addons, setAddons] = useState([]);
   const [date, setDate] = useState("");
-
-  const adminNumber = "919535261933";
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -71,19 +75,20 @@ export default function BookAppointment() {
       return;
     }
 
+    const adminNumber = branchAdmins[location];
+
     const msg = `
-🧖‍♀️ New Booking Request:
+ New Booking Request:
 
-👤 Name: ${name}
-📞 Mobile: ${phone}
+ Name: ${name}
+ Mobile: ${phone}
 
-📍 Location: ${location}
-🧩 Category: ${category}
-✨ Service: ${service}
+ Branch: ${location}
+ Category: ${category}
+ Service: ${service}
+ Add Ons: ${addons.length ? addons.join(", ") : "None"}
 
-➕ Add On: ${addons.length ? addons.join(", ") : "None"}
-
-📅 Date: ${formatDate()}
+ Date: ${formatDate()}
 
 Please confirm booking.
 `;
@@ -93,7 +98,7 @@ Please confirm booking.
       "_blank"
     );
 
-    alert("Your booking request has been sent to admin!");
+    alert("Your booking request has been sent!");
   };
 
   const isPhoneValid = phone.length === 10 && validatePhone(phone);
@@ -104,49 +109,40 @@ Please confirm booking.
   return (
     <div className="relative">
       {/* Background */}
-      <div className="absolute inset-0 bg-linear-to-br from-rose-100 via-amber-50 to-white -z-10"></div>
-      <div className="absolute inset-0 opacity-[0.08] bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')] mix-blend-overlay -z-10"></div>
+      <div className="absolute inset-0 bg-linear-to-br from-rose-100 via-amber-50 to-white -z-10" />
+      <div className="absolute inset-0 opacity-[0.08] bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')] -z-10" />
 
-    <section className="pt-28 pb-10 px-4 sm:px-6 max-w-3xl mx-auto">
-
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center tracking-wide">
+      <section className="pt-28 pb-10 px-4 sm:px-6 max-w-3xl mx-auto">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center">
           Book Appointment
         </h1>
 
         <form className="space-y-6" onSubmit={handleSubmit} noValidate>
-          
-          {/* FORM GRID — Fully optimized for mobile */}
+          {/* Form Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input
               required
               type="text"
               placeholder="Your Name"
-              className="w-full p-3 border rounded text-sm focus:ring-2 focus:ring-black/40"
+              className="w-full p-3 border rounded text-sm"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
 
-            <div>
-              <input
-                required
-                inputMode="numeric"
-                placeholder="Mobile Number"
-                className={`w-full p-3 border rounded text-sm focus:ring-2 focus:ring-black/40 ${
-                  phone && !isPhoneValid ? "border-red-500" : ""
-                }`}
-                value={phone}
-                onChange={(e) => handlePhoneChange(e.target.value)}
-              />
-              {phone && !isPhoneValid && (
-                <p className="text-red-500 text-xs mt-1">
-                  Enter valid 10-digit number (6/7/8/9).
-                </p>
-              )}
-            </div>
+            <input
+              required
+              inputMode="numeric"
+              placeholder="Mobile Number"
+              className={`w-full p-3 border rounded text-sm ${
+                phone && !isPhoneValid ? "border-red-500" : ""
+              }`}
+              value={phone}
+              onChange={(e) => handlePhoneChange(e.target.value)}
+            />
 
             <select
               required
-              className="w-full p-3 border rounded text-sm bg-white focus:ring-2 focus:ring-black/40"
+              className="w-full p-3 border rounded text-sm bg-white"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
             >
@@ -158,7 +154,7 @@ Please confirm booking.
 
             <select
               required
-              className="w-full p-3 border rounded text-sm bg-white focus:ring-2 focus:ring-black/40"
+              className="w-full p-3 border rounded text-sm bg-white"
               value={category}
               onChange={(e) => {
                 setCategory(e.target.value);
@@ -174,7 +170,7 @@ Please confirm booking.
             <select
               required
               disabled={!category}
-              className="w-full p-3 border rounded text-sm bg-white focus:ring-2 focus:ring-black/40 disabled:opacity-50"
+              className="w-full p-3 border rounded text-sm bg-white disabled:opacity-50"
               value={service}
               onChange={(e) => setService(e.target.value)}
             >
@@ -189,16 +185,15 @@ Please confirm booking.
               required
               type="date"
               min={today}
-              className="w-full p-3 border rounded text-sm bg-white focus:ring-2 focus:ring-black/40"
+              className="w-full p-3 border rounded text-sm bg-white"
               value={date}
               onChange={(e) => setDate(e.target.value)}
             />
           </div>
 
-          {/* Add-ons (Improved for mobile) */}
+          {/* Add-ons */}
           <div className="p-4 border rounded bg-gray-50">
             <p className="font-semibold mb-2 text-sm">Add Ons (Optional)</p>
-
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {addOnList.map((addon) => (
                 <label key={addon} className="flex items-center gap-2 text-sm">
@@ -207,19 +202,19 @@ Please confirm booking.
                     checked={addons.includes(addon)}
                     onChange={() => toggleAddOn(addon)}
                   />
-                  <span>{addon}</span>
+                  {addon}
                 </label>
               ))}
             </div>
           </div>
 
-          {/* Summary (Improved mobile spacing) */}
+          {/* Summary */}
           {isFormReady && (
             <div className="p-4 border rounded bg-gray-50 text-sm space-y-1">
-              <h2 className="text-lg font-semibold mb-2">Summary</h2>
+              <h2 className="font-semibold mb-2">Summary</h2>
               <p><strong>Name:</strong> {name}</p>
               <p><strong>Mobile:</strong> {phone}</p>
-              <p><strong>Location:</strong> {location}</p>
+              <p><strong>Branch:</strong> {location}</p>
               <p><strong>Category:</strong> {category}</p>
               <p><strong>Service:</strong> {service}</p>
               <p><strong>Add Ons:</strong> {addons.length ? addons.join(", ") : "None"}</p>
@@ -230,13 +225,13 @@ Please confirm booking.
           <button
             type="submit"
             disabled={!isFormReady}
-            className={`w-full p-3 rounded text-white text-base font-medium transition ${
+            className={`w-full p-3 rounded text-white font-medium ${
               isFormReady
                 ? "bg-black hover:bg-gray-800"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
-            Submit & Send to Admin
+            Submit
           </button>
         </form>
       </section>
