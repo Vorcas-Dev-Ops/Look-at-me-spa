@@ -1,148 +1,135 @@
 import React from "react";
+import { motion } from "framer-motion";
 
-// IMPORT BRANCH MAIN IMAGES
-import ks from "../assets/1.jpeg";
-import logo from "../assets/tc1.jpeg";
+// IMAGE
+import tcPalyaImg from "../assets/tc1.jpeg";
 
 export default function Branches() {
-  const branches = [
-    {
-      id: "kasturi-nagar",
-      name: "Look @ Me Spa – Main Branch",
-      location: "Kasturi Nagar, Bengaluru",
-      address:
-        "303 1st floor, 2nd main, Kasturi Nagar Main Rd, opposite Karnataka Bank, East of NGEF Layout, Kasturi Nagar, Bengaluru, Karnataka 560043",
-      phone: "+917349058245",
-      displayPhone: "+91 73490 58245",
-      timings: "10:00 AM – 10:00 PM",
-      image: ks,
-      map: "https://www.google.com/maps?q=look+at+me+spa+kasturi+nagar",
-    },
-    {
-      id: "tc-palya",
-      name: "Look @ Me Spa – Second Branch",
-      location: "TC Palya, Bengaluru",
-      address:
-        "Opposite Shell Petrol Pump, 2nd floor above Bata Showroom, Thambu Chetty Palya Main Rd, Akshaya Nagar, Ramamurthy Nagar, Bengaluru, Karnataka 560016",
-      phone: "+919535261933",
-      displayPhone: "+91 95352 61933",
-      timings: "10:00 AM – 10:00 PM",
-      image: logo,
-      map: "https://www.google.com/maps?q=look+at+me+spa+tc+palya",
-    },
-  ];
-
   return (
-    <section className="relative pt-24 pb-20 min-h-screen">
+    <section className="relative pt-20 sm:pt-24 pb-14 sm:pb-16 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-linear-to-br from-amber-100 via-white to-rose-50 -z-10" />
-      <div className="absolute inset-0 opacity-[0.12] bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')] -z-10" />
 
       {/* Header */}
-      <div className="text-center px-6 mb-14">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900">
-          Our <span className="text-[#c49b2e]">Branches</span>
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+        className="text-center px-4 sm:px-6 mb-8 sm:mb-10"
+      >
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900">
+          Our <span className="text-[#c49b2e]">Branch</span>
         </h1>
-        <p className="text-lg md:text-xl text-gray-700 mt-2">
-          Choose your nearest luxury spa location
+        <p className="text-sm sm:text-base md:text-lg text-gray-700 mt-2">
+          Premium spa experience at TC Palya
         </p>
-      </div>
+      </motion.div>
 
-      {/* Branch Cards */}
-      <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-10 px-6">
-        {branches.map((branch) => (
-          <div
-            key={branch.id}
-            className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all"
-          >
-            {/* Image */}
-            <div className="w-full h-48 overflow-hidden">
-              <img
-                src={branch.image}
-                alt={branch.name}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-              />
+      {/* Branch Card */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto px-4 sm:px-6"
+      >
+        <div className="bg-white border border-[#c49b2e]/30 rounded-2xl shadow-lg overflow-hidden">
+          {/* Image */}
+          <div className="relative h-44 sm:h-52 md:h-56">
+            <img
+              src={tcPalyaImg}
+              alt="Look @ Me Spa TC Palya"
+              className="w-full h-full object-cover"
+            />
+
+            {/* Badge */}
+            <span className="absolute top-3 left-3 bg-[#c49b2e] text-white text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-full shadow">
+              Only 1 Branch
+            </span>
+          </div>
+
+          {/* Content */}
+          <div className="p-4 sm:p-5 md:p-6 text-center space-y-3">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">
+              Look @ Me Spa – TC Palya
+            </h2>
+
+            <p className="text-[#c49b2e] text-xs sm:text-sm font-semibold">
+              📍 TC Palya, Bengaluru
+            </p>
+
+            <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">
+              Opposite Shell Petrol Pump, 2nd floor above Bata Showroom,
+              Thambu Chetty Palya Main Rd, Bengaluru – 560016
+            </p>
+
+            {/* Phone & Time */}
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-700">
+              <a
+                href="tel:+919535261933"
+                className="font-semibold hover:text-[#c49b2e]"
+              >
+                📞 +91 95352 61933
+              </a>
+              <span>⏱ 10:00 AM – 10:00 PM</span>
             </div>
 
-            {/* Content */}
-            <div className="p-5 space-y-3 text-center">
-              <h2 className="text-xl font-bold text-gray-900">
-                {branch.name}
-              </h2>
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-3 pt-3">
+              <a
+                href="/book-appointment?branch=tc-palya"
+                className="px-4 py-2 bg-[#c49b2e] text-white text-xs sm:text-sm rounded-full font-semibold hover:bg-[#b48728] transition"
+              >
+                Book Now
+              </a>
 
-              <p className="text-[#c49b2e] font-semibold text-sm">
-                📍 {branch.location}
-              </p>
-
-              <p className="text-gray-700 text-sm leading-relaxed">
-                <span className="font-semibold">Address:</span>{" "}
-                {branch.address}
-              </p>
-
-              {/* Phone & Timing */}
-              <div className="flex justify-center gap-4 text-sm text-gray-700 flex-wrap">
-                <a
-                  href={`tel:${branch.phone}`}
-                  className="hover:text-[#c49b2e] font-semibold"
-                >
-                  📞 {branch.displayPhone}
-                </a>
-
-                <span className="text-gray-400 hidden sm:inline">|</span>
-
-                <p>
-                  ⏱ <span className="font-semibold">{branch.timings}</span>
-                </p>
-              </div>
-
-              {/* Actions */}
-              <div className="flex justify-center gap-3 pt-4 flex-wrap">
-                <a
-                  href={branch.map}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 bg-[#c49b2e] text-white text-sm rounded-full hover:bg-[#b48728] transition"
-                >
-                  View Map
-                </a>
-
-                <a
-                  href={`/book-appointment?branch=${branch.id}`}
-                  className="px-4 py-2 border border-[#c49b2e] text-[#c49b2e] text-sm rounded-full hover:bg-[#c49b2e] hover:text-white transition"
-                >
-                  Book Now
-                </a>
-
-                <a
-                  href={`/gallery?branch=${branch.id}`}
-                  className="px-4 py-2 border border-gray-400 text-gray-700 text-sm rounded-full hover:bg-gray-800 hover:text-white transition"
-                >
-                  View Gallery
-                </a>
-              </div>
+              <a
+                href="/gallery?branch=tc-palya"
+                className="px-4 py-2 border border-gray-400 text-gray-700 text-xs sm:text-sm rounded-full font-semibold hover:bg-gray-900 hover:text-white transition"
+              >
+                View Gallery
+              </a>
             </div>
           </div>
-        ))}
-      </div>
-      <div>
-{/* Floating WhatsApp Button */}
-<a
-  href="https://wa.me/919535261933?text=Hi%20I%20want%20to%20book%20an%20appointment"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="fixed bottom-5 right-5 z-50"
->
-  <div className="w-14 h-14 rounded-full bg-green-500 shadow-xl flex items-center justify-center hover:scale-110 transition-transform duration-300">
-    <img
-      src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-      alt="WhatsApp"
-      className="w-8 h-8"
-    />
-  </div>
-</a>
 
+          {/* Google Map */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45 }}
+            viewport={{ once: true }}
+            className="w-full h-44 sm:h-52 md:h-56 border-t"
+          >
+            <iframe
+              title="Look @ Me Spa TC Palya Map"
+              src="https://www.google.com/maps?q=look+at+me+spa+tc+palya&output=embed"
+              className="w-full h-full border-0"
+              loading="lazy"
+            />
+          </motion.div>
+        </div>
+      </motion.div>
 
-</div>
+      {/* WhatsApp Floating Button */}
+      <a
+        href="https://wa.me/919535261933?text=Hi%20I%20want%20to%20book%20an%20appointment"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-50"
+      >
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-green-500 shadow-lg flex items-center justify-center"
+        >
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+            alt="WhatsApp"
+            className="w-5 h-5 sm:w-6 sm:h-6"
+          />
+        </motion.div>
+      </a>
     </section>
   );
 }
