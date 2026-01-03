@@ -7,7 +7,7 @@ const Nav = () => {
     { name: "HOME", path: "/" },
     
     { name: "SERVICES", path: "/ourservices" },
-    { name: "BRANCHES", path: "/branches" },
+    { name: "BRANCH", path: "/branches" },
     { name: "ABOUT", path: "/about" },
   ];
 

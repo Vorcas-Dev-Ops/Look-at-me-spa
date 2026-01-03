@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-// Main Categories
+/* =========================
+   SERVICE CATEGORIES
+========================= */
+
 const serviceCategories = {
   "Body Massage": [
     "Thai Body Massage",
@@ -10,36 +13,61 @@ const serviceCategories = {
     "Deep Tissue Massage",
     "Wellness Relaxing",
   ],
-  "Signature Treatment": ["Four Hand Massage", "Sports Massage", "Body Scrub"],
+  "Signature Treatment": [
+    "Four Hand Massage",
+    "Sports Massage",
+    "Body Scrub",
+  ],
 };
 
-// Optional Add Ons
-const addOnList = ["Head Massage", "Foot Massage", "Full Body Wax"];
+/* =========================
+   OPTIONAL ADD-ONS
+========================= */
 
-// Branch Locations
-const locations = ["KASTHURINAGAR", "TC PALYA"];
+const addOnList = [
+  "Head Massage",
+  "Foot Massage",
+  "Full Body Wax",
+];
+
+/* =========================
+   BRANCH CONFIG
+========================= */
+
+// Branch Locations (only one active for now)
+const locations = [
+  // "KASTHURINAGAR", // temporarily disabled
+  "TC PALYA",
+];
 
 // Branch-wise WhatsApp Numbers
 const branchAdmins = {
-  KASTHURINAGAR: "917349058245",
+  // KASTHURINAGAR: "917349058245", // disabled
   "TC PALYA": "919535261933",
 };
 
 export default function BookAppointment() {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
-  const prefill = params.get("service") || "";
+  const prefillService = params.get("service") || "";
 
-  // User States
+  /* =========================
+     FORM STATE
+  ========================= */
+
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [location, setLocation] = useState("");
+  const [location] = useState("TC PALYA"); // locked to single branch
   const [category, setCategory] = useState("");
-  const [service, setService] = useState(prefill);
+  const [service, setService] = useState(prefillService);
   const [addons, setAddons] = useState([]);
   const [date, setDate] = useState("");
 
   const today = new Date().toISOString().split("T")[0];
+
+  /* =========================
+     HELPERS
+  ========================= */
 
   const validatePhone = (v) => /^[6-9]\d{9}$/.test(v);
 
@@ -67,6 +95,10 @@ export default function BookAppointment() {
     });
   };
 
+  /* =========================
+     SUBMIT HANDLER
+  ========================= */
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -77,24 +109,24 @@ export default function BookAppointment() {
 
     const adminNumber = branchAdmins[location];
 
-    const msg = `
- New Booking Request:
+    const message = `
+New Booking Request:
 
- Name: ${name}
- Mobile: ${phone}
+Name: ${name}
+Mobile: ${phone}
 
- Branch: ${location}
- Category: ${category}
- Service: ${service}
- Add Ons: ${addons.length ? addons.join(", ") : "None"}
+Branch: ${location}
+Category: ${category}
+Service: ${service}
+Add Ons: ${addons.length ? addons.join(", ") : "None"}
 
- Date: ${formatDate()}
+Date: ${formatDate()}
 
 Please confirm booking.
-`;
+    `;
 
     window.open(
-      `https://wa.me/${adminNumber}?text=${encodeURIComponent(msg)}`,
+      `https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`,
       "_blank"
     );
 
@@ -104,7 +136,16 @@ Please confirm booking.
   const isPhoneValid = phone.length === 10 && validatePhone(phone);
 
   const isFormReady =
-    name.trim() && isPhoneValid && location && category && service && date;
+    name.trim() &&
+    isPhoneValid &&
+    location &&
+    category &&
+    service &&
+    date;
+
+  /* =========================
+     UI
+  ========================= */
 
   return (
     <div className="relative">
@@ -118,7 +159,7 @@ Please confirm booking.
         </h1>
 
         <form className="space-y-6" onSubmit={handleSubmit} noValidate>
-          {/* Form Grid */}
+          {/* ================= FORM GRID ================= */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input
               required
@@ -140,16 +181,13 @@ Please confirm booking.
               onChange={(e) => handlePhoneChange(e.target.value)}
             />
 
+            {/* Locked Branch Selector */}
             <select
-              required
-              className="w-full p-3 border rounded text-sm bg-white"
+              disabled
+              className="w-full p-3 border rounded text-sm bg-gray-100 cursor-not-allowed"
               value={location}
-              onChange={(e) => setLocation(e.target.value)}
             >
-              <option value="">Select Location</option>
-              {locations.map((loc) => (
-                <option key={loc}>{loc}</option>
-              ))}
+              <option>TC PALYA</option>
             </select>
 
             <select
@@ -191,9 +229,11 @@ Please confirm booking.
             />
           </div>
 
-          {/* Add-ons */}
+          {/* ================= ADD ONS ================= */}
           <div className="p-4 border rounded bg-gray-50">
-            <p className="font-semibold mb-2 text-sm">Add Ons (Optional)</p>
+            <p className="font-semibold mb-2 text-sm">
+              Add Ons (Optional)
+            </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {addOnList.map((addon) => (
                 <label key={addon} className="flex items-center gap-2 text-sm">
@@ -208,7 +248,7 @@ Please confirm booking.
             </div>
           </div>
 
-          {/* Summary */}
+          {/* ================= SUMMARY ================= */}
           {isFormReady && (
             <div className="p-4 border rounded bg-gray-50 text-sm space-y-1">
               <h2 className="font-semibold mb-2">Summary</h2>
@@ -222,6 +262,7 @@ Please confirm booking.
             </div>
           )}
 
+          {/* ================= SUBMIT ================= */}
           <button
             type="submit"
             disabled={!isFormReady}
