@@ -5,34 +5,104 @@ import logo from "../assets/logo.png";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300">
-      {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+    <footer className="bg-gradient-to-b from-[#0a1628] to-[#060c17] text-gray-300">
+
+      {/* ================= MOBILE FOOTER ================= */}
+      <div className="md:hidden px-6 py-10 space-y-10">
 
         {/* Brand */}
         <div>
-          <div className="flex items-center gap-4 mb-4 group">
+          <div className="flex items-center gap-3 mb-3">
             <img
               src={logo}
-              alt="Look At Me Spa Logo"
-              className="
-                h-16 w-auto rounded-3xl p-2
-                bg-gray-800 shadow-lg ring-1 ring-white/30
-                transition-all duration-500
-                group-hover:scale-110 group-hover:shadow-2xl
-              "
+              alt="Look At Me Spa"
+              className="h-12 w-auto rounded-xl bg-gray-800 p-2"
             />
-            <h2 className="
-              text-2xl font-extrabold font-serif
-              bg-clip-text text-transparent
-              bg-gradient-to-r from-amber-300 to-yellow-500
-              tracking-wide
-            ">
+            <h2 className="text-lg font-bold text-yellow-400">
               Look@Me Spa
             </h2>
           </div>
 
-          <p className="text-sm leading-relaxed text-gray-400">
+          <p className="text-sm text-gray-400">
+            Experience luxury, wellness, and beauty through our premium
+            spa & salon services.
+          </p>
+        </div>
+
+        {/* Quick Links + Contact (SIDE BY SIDE) */}
+        <div className="grid grid-cols-2 gap-6">
+
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-yellow-400 font-semibold mb-3 text-sm">
+              Quick Links
+            </h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/ourservices">Our Services</Link></li>
+              <li><Link to="/branches">Branches</Link></li>
+              <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/book-appointment">Book</Link></li>
+              <li><Link to="/gallery">Gallery</Link></li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="text-yellow-400 font-semibold mb-3 text-sm">
+              Contact
+            </h3>
+
+            <ul className="space-y-2 text-sm">
+              <li className="flex gap-2">
+                <MapPin size={14} /> Bengaluru
+              </li>
+              <li className="flex gap-2">
+                <Phone size={14} />
+                <a href="tel:+919535261933">+91 9535261933</a>
+              </li>
+              <li className="flex gap-2">
+                <Mail size={14} /> contact@lookatme.com
+              </li>
+            </ul>
+
+            {/* ✅ SOCIAL ICONS — MOBILE (BELOW CONTACT) */}
+            <div className="flex gap-4 mt-4">
+              <a
+                href="https://wa.me/919535261933"
+                target="_blank"
+                rel="noreferrer"
+                className="text-green-500"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+                  <path d="M20.52 3.48A11.84 11.84 0 0 0 12.04 0C5.54 0 .36 5.18.36 11.67c0 2.06.54 4.1 1.56 5.9L0 24l6.64-1.94a11.7 11.7 0 0 0 5.4 1.34h.01c6.49 0 11.67-5.18 11.67-11.67a11.63 11.63 0 0 0-3.2-8.25Z" />
+                </svg>
+              </a>
+
+              <Facebook size={18} className="cursor-pointer" />
+              <Instagram size={18} className="cursor-pointer" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ================= DESKTOP FOOTER ================= */}
+      <div className="hidden md:grid max-w-7xl mx-auto px-6 py-12 grid-cols-3 gap-12">
+
+        {/* Brand */}
+        <div>
+          <div className="flex items-center gap-4 mb-4">
+            <img
+              src={logo}
+              alt="Look At Me Spa"
+              className="h-14 w-auto rounded-2xl bg-gray-800 p-2"
+            />
+            <h2 className="text-2xl font-bold text-yellow-400">
+              Look@Me Spa
+            </h2>
+          </div>
+
+          <p className="text-sm text-gray-400 max-w-sm">
             Experience luxury, wellness, and beauty through our premium
             spa & salon services, crafted for comfort and care.
           </p>
@@ -40,114 +110,60 @@ export default function Footer() {
 
         {/* Quick Links */}
         <div>
-          <h3 className="
-            text-lg font-bold font-serif mb-4
-            bg-clip-text text-transparent
-            bg-gradient-to-r from-amber-400 to-yellow-600
-          ">
+          <h3 className="text-lg font-semibold text-yellow-400 mb-4">
             Quick Links
           </h3>
-
           <ul className="space-y-2 text-sm">
-            {[
-              { name: "Home", path: "/" },
-              { name: "Our Services", path: "/ourservices" },
-              { name: "Branches", path: "/branches" },
-              { name: "About Us", path: "/about" },
-              { name: "Book Appointment", path: "/book-appointment" },
-              { name: "Gallery", path: "/gallery" },
-            ].map((link) => (
-              <li key={link.name}>
-                <Link
-                  to={link.path}
-                  className="hover:text-white transition"
-                >
-                  {link.name}
-                </Link>
-              </li>
-            ))}
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/ourservices">Our Services</Link></li>
+            <li><Link to="/branches">Branches</Link></li>
+            <li><Link to="/about">About Us</Link></li>
+            <li><Link to="/book-appointment">Book Appointment</Link></li>
+            <li><Link to="/gallery">Gallery</Link></li>
           </ul>
         </div>
 
-        {/* Contact */}
+        {/* Contact + SOCIAL ICONS */}
         <div>
-          <h3 className="
-            text-lg font-bold font-serif mb-4
-            bg-clip-text text-transparent
-            bg-gradient-to-r from-amber-400 to-yellow-600
-          ">
+          <h3 className="text-lg font-semibold text-yellow-400 mb-4">
             Contact Us
           </h3>
 
           <ul className="space-y-3 text-sm">
-            <li className="flex gap-3">
-              <MapPin size={16} className="mt-1" />
-              Bengaluru, India
+            <li className="flex gap-2">
+              <MapPin size={16} /> Bengaluru, India
             </li>
-
-            <li className="flex gap-3">
+            <li className="flex gap-2">
               <Phone size={16} />
-              <a
-                href="tel:+917349058245"
-                className="hover:text-white transition"
-              >
-                +91 73490 58245
-              </a>
+              <a href="tel:+919535261933">+91 9535261933</a>
             </li>
-
-            <li className="flex gap-3">
-              <Mail size={16} />
-              <a
-                href="mailto:contact@lookatme.com"
-                className="hover:text-white transition"
-              >
-                contact@lookatme.com
-              </a>
+            <li className="flex gap-2">
+              <Mail size={16} /> contact@lookatme.com
             </li>
           </ul>
 
-          {/* Social Icons */}
+          {/* ✅ SOCIAL ICONS — DESKTOP */}
           <div className="flex gap-4 mt-5">
-            {/* WhatsApp */}
             <a
-              href="https://wa.me/917349058245"
+              href="https://wa.me/919535261933"
               target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-green-500 transition"
-              aria-label="WhatsApp"
+              rel="noreferrer"
+              className="text-green-500"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="h-5 w-5"
-              >
+              <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
                 <path d="M20.52 3.48A11.84 11.84 0 0 0 12.04 0C5.54 0 .36 5.18.36 11.67c0 2.06.54 4.1 1.56 5.9L0 24l6.64-1.94a11.7 11.7 0 0 0 5.4 1.34h.01c6.49 0 11.67-5.18 11.67-11.67a11.63 11.63 0 0 0-3.2-8.25Z" />
               </svg>
             </a>
 
-            <Facebook size={20} className="cursor-pointer hover:text-white transition" />
-            <Instagram size={20} className="cursor-pointer hover:text-white transition" />
+            <Facebook size={18} className="cursor-pointer hover:text-white" />
+            <Instagram size={18} className="cursor-pointer hover:text-white" />
           </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-gray-700 py-4 text-center text-sm text-gray-500">
-        <p>
-          © {new Date().getFullYear()} LookAtMe Salon. All Rights Reserved.
-        </p>
-        <p className="text-xs mt-1">
-          Designed & Developed by{" "}
-          <a
-            href="https://vorcastechlab.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold text-amber-400 hover:text-amber-300 transition"
-          >
-            Vorcas Techlab
-          </a>
-        </p>
+      {/* Bottom */}
+      <div className="border-t border-white/10 py-4 text-center text-xs text-gray-500">
+        © {new Date().getFullYear()} LookAtMe Salon. All Rights Reserved.
       </div>
     </footer>
   );
